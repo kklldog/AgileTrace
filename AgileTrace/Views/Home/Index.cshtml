@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<table class="table table-bordered table-condensed table-responsive">
+    
+    <tr ng-repeat="row in rows">
+        <td ng-bind="row.Time"></td>
+        <td ng-bind="row.Topic"></td>
+        <td ng-bind="row.Content"></td>
+    </tr>
+
+</table>

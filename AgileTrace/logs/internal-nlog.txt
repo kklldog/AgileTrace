@@ -1,0 +1,90 @@
+2018-02-11 16:17:17.0388 Info Message Template Auto Format enabled
+2018-02-11 16:17:17.1646 Info Adding target File Target[allfile]
+2018-02-11 16:17:17.1745 Info Adding target File Target[web]
+2018-02-11 16:17:17.1745 Info Adding target Null Target[blackhole]
+2018-02-11 16:17:17.1887 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:17:17.1887 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: allfile
+2018-02-11 16:17:17.2233 Info Found 59 configuration items
+2018-02-11 16:17:17.2419 Info Configuration initialized.
+2018-02-11 16:17:17.2696 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.0.6749. Product version: 4.5.0-rc02.
+2018-02-11 16:17:17.2918 Info Message Template Auto Format enabled
+2018-02-11 16:17:17.2918 Info Found 59 configuration items
+2018-02-11 16:17:17.2918 Info Adding target File Target[allfile]
+2018-02-11 16:17:17.2918 Info Adding target File Target[web]
+2018-02-11 16:17:17.2992 Info Adding target Null Target[blackhole]
+2018-02-11 16:17:17.2992 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:17:17.2992 Warn Unused target detected. Add a rule for this target to the configuration. TargetName: allfile
+2018-02-11 16:19:12.0085 Info Message Template Auto Format enabled
+2018-02-11 16:19:12.1238 Info Adding target File Target[web]
+2018-02-11 16:19:12.1267 Info Adding target Null Target[blackhole]
+2018-02-11 16:19:12.1267 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:19:12.1600 Info Found 40 configuration items
+2018-02-11 16:19:12.1724 Info Configuration initialized.
+2018-02-11 16:19:12.1724 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.0.6749. Product version: 4.5.0-rc02.
+2018-02-11 16:19:12.1926 Info Message Template Auto Format enabled
+2018-02-11 16:19:12.1926 Info Found 40 configuration items
+2018-02-11 16:19:12.1926 Info Adding target File Target[web]
+2018-02-11 16:19:12.1926 Info Adding target Null Target[blackhole]
+2018-02-11 16:19:12.1926 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:33:27.0996 Info Message Template Auto Format enabled
+2018-02-11 16:33:27.2210 Info Adding target File Target[web]
+2018-02-11 16:33:27.2210 Info Adding target Null Target[blackhole]
+2018-02-11 16:33:27.2210 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:33:27.2550 Info Found 44 configuration items
+2018-02-11 16:33:27.2688 Info Configuration initialized.
+2018-02-11 16:33:27.2688 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.0.6749. Product version: 4.5.0-rc02.
+2018-02-11 16:33:27.2874 Info Message Template Auto Format enabled
+2018-02-11 16:33:27.2874 Info Found 44 configuration items
+2018-02-11 16:33:27.2874 Info Adding target File Target[web]
+2018-02-11 16:33:27.2874 Info Adding target Null Target[blackhole]
+2018-02-11 16:33:27.2874 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:36:17.1457 Info Message Template Auto Format enabled
+2018-02-11 16:36:17.2458 Info Adding target File Target[web]
+2018-02-11 16:36:17.2458 Info Adding target Null Target[blackhole]
+2018-02-11 16:36:17.2563 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:36:17.2793 Info Found 46 configuration items
+2018-02-11 16:36:17.2970 Info Configuration initialized.
+2018-02-11 16:36:17.3135 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.0.6749. Product version: 4.5.0-rc02.
+2018-02-11 16:36:17.3135 Info Message Template Auto Format enabled
+2018-02-11 16:36:17.3135 Info Found 46 configuration items
+2018-02-11 16:36:17.3135 Info Adding target File Target[web]
+2018-02-11 16:36:17.3285 Info Adding target Null Target[blackhole]
+2018-02-11 16:36:17.3285 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:39:01.7241 Info Message Template Auto Format enabled
+2018-02-11 16:39:01.8293 Info Adding target File Target[web]
+2018-02-11 16:39:01.8449 Info Adding target Null Target[blackhole]
+2018-02-11 16:39:01.8449 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:39:01.8996 Info Found 43 configuration items
+2018-02-11 16:39:01.9175 Info Configuration initialized.
+2018-02-11 16:39:01.9300 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.0.6749. Product version: 4.5.0-rc02.
+2018-02-11 16:39:01.9300 Info Message Template Auto Format enabled
+2018-02-11 16:39:01.9300 Info Found 43 configuration items
+2018-02-11 16:39:01.9300 Info Adding target File Target[web]
+2018-02-11 16:39:01.9300 Info Adding target Null Target[blackhole]
+2018-02-11 16:39:01.9300 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:49:38.5872 Info Message Template Auto Format enabled
+2018-02-11 16:49:38.6949 Info Adding target File Target[web]
+2018-02-11 16:49:38.6949 Info Adding target Null Target[blackhole]
+2018-02-11 16:49:38.7051 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:49:38.7308 Info Found 43 configuration items
+2018-02-11 16:49:38.7461 Info Configuration initialized.
+2018-02-11 16:49:38.7593 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.0.6749. Product version: 4.5.0-rc02.
+2018-02-11 16:49:38.7593 Info Message Template Auto Format enabled
+2018-02-11 16:49:38.7593 Info Found 43 configuration items
+2018-02-11 16:49:38.7593 Info Adding target File Target[web]
+2018-02-11 16:49:38.7593 Info Adding target Null Target[blackhole]
+2018-02-11 16:49:38.7593 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:54:39.2288 Info Message Template Auto Format enabled
+2018-02-11 16:54:39.3192 Info Adding target File Target[web]
+2018-02-11 16:54:39.3192 Info Adding target Null Target[blackhole]
+2018-02-11 16:54:39.3287 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:54:39.3537 Info Found 43 configuration items
+2018-02-11 16:54:39.3659 Info Configuration initialized.
+2018-02-11 16:54:39.3659 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.0.6749. Product version: 4.5.0-rc02.
+2018-02-11 16:54:39.3659 Info Message Template Auto Format enabled
+2018-02-11 16:54:39.3659 Info Found 43 configuration items
+2018-02-11 16:54:39.3762 Info Adding target File Target[web]
+2018-02-11 16:54:39.3762 Info Adding target Null Target[blackhole]
+2018-02-11 16:54:39.3762 Info Configured from an XML element in X:\workspace\AgileTrace\AgileTrace\bin\Debug\netcoreapp2.0\NLog.config...
+2018-02-11 16:55:29.8202 Info Shutting down logging...
+2018-02-11 16:55:29.8407 Info Logger has been shut down.
