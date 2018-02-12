@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "登录";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="this.is.a.login.page">
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>
+        Login
+    </title>
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+        /*account/index*/
+
+        /*account/login*/
+        body.login {
+            background-color: #f9f9f9;
+        }
+
+        .login-form {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+            .login-form .header {
+                color: #333;
+                text-align: center;
+                text-shadow: none;
+            }
+
+                .login-form .header h1 {
+                    font-size: 24px;
+                    font-weight: 300;
+                    letter-spacing: -0.5px;
+                }
+
+                .login-form .header img {
+                    height: 80px;
+                }
+
+            .login-form .body {
+                padding: 15px;
+                background-color: #fff;
+                font-size: 14px;
+                border: 1px solid #d8dee2;
+                border-radius: 5px;
+            }
+    </style>
+</head>
+
+<body class="login" >
+    <div class="container">
+        <div class="login-form ">
+            <div class="header">
+                <p class="text-muted">login Agile Trace</p>
+            </div>
+            <div class="body">
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">UserName</label>
+
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="UserName" placeholder="UserName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="Password" placeholder="Password" required>
+                    </div>
+                
+                    <span class="text-danger" ng-bind="error">
+                        @Html.ValidationSummary(true, "", new { })
+
+                    </span>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block">登录</button>
+                    </div>
+              
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+ 
+</body>
+
+</html>

@@ -13,8 +13,12 @@ namespace AgileTrace
 {
     public class Program
     {
+        public static IConfiguration Configuration { get; set; }
         public static void Main(string[] args)
         {
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json").Build();
             BuildWebHost(args).Run();
         }
 

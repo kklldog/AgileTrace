@@ -1,14 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<div>
+    <ui-view></ui-view>
+</div>
 
 
-<table class="table table-bordered table-condensed table-responsive">
-    
-    <tr ng-repeat="row in rows">
-        <td ng-bind="row.Time"></td>
-        <td ng-bind="row.Topic"></td>
-        <td ng-bind="row.Content"></td>
-    </tr>
 
-</table>
+@section Scripts
+    {
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    <script src="~/js/query.js" asp-append-version="true"></script>
+    <script src="~/js/dash.js" asp-append-version="true"></script>
+    <script src="~/js/setting.js" asp-append-version="true"></script>
+    <script src="js/directives/datetimepicker.js" asp-append-version="true"></script>
+}
