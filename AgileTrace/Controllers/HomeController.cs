@@ -29,11 +29,15 @@ namespace AgileTrace.Controllers
             return View(viewName);
         }
 
-        public IActionResult PageTrace(int pageIndex, int pageSize)
+        public IActionResult PageTrace(string appId, int pageIndex, int pageSize)
         {
             using (var db = new TraceDbContext())
             {
-                var result = db.Traces.OrderByDescending(t => t.Time).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var result = db.Traces
+                    .Where(t => string.IsNullOrEmpty(appId) || t.AppId == appId)
+                    .OrderByDescending(t => t.Time)
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize).ToList();
                 var totalCount = db.Traces.Count();
 
                 return Json(new

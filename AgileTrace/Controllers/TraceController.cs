@@ -22,6 +22,9 @@ namespace AgileTrace.Controllers
         {
             if (model != null)
             {
+                var appId = HttpContext.Request.Headers.First(h => h.Key == "appid")
+                    .Value.ToArray()[0];
+                model.AppId = appId;
                 model.Time = DateTime.Now;
                 using (var db = new TraceDbContext())
                 {

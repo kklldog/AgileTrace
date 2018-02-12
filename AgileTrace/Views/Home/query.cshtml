@@ -2,18 +2,26 @@
     Layout = null;
 }
 
+<div class="form-inline">
+    App: <select class="form-control input-sm" 
+                ng-model="selectedAppId" 
+                ng-options="item.id as item.name for item in apps"
+                ng-change="selectedAppIdChanged()">
+    </select>
+</div>
+<p></p>
 <table class="table table-bordered table-condensed table-responsive table-striped">
     <tr>
         <th>Time</th>
-        <th>Topic</th>
         <th>Level</th>
+        <th>Topic</th>
         <th>Message</th>
         <th>Action</th>
     </tr>
     <tr ng-repeat="row in rows">
         <td ng-bind="row.time|date:'yyyy-MM-dd HH:mm:ss'"></td>
-        <td ng-bind="row.topic"></td>
         <td ng-bind="row.level"></td>
+        <td ng-bind="row.topic"></td>
         <td ng-bind="row.message"></td>
         <td>
             <button class="btn btn-primary" ng-click="showTraceDetail(row)">detail</button>
