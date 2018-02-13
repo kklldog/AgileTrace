@@ -1,3 +1,28 @@
 ﻿@{
     Layout = null;
 }
+<style>
+    div.ng-enter {
+        -webkit-transition: 0.5s linear all; /* Chrome */
+        transition: 1s linear all;
+        opacity: 0.5;
+    }
+
+    div.ng-enter-active {
+        opacity: 1;
+    }
+    .realtime-box {
+        height: 100px;
+        padding: 20px;
+    }
+</style>
+<p>
+    <strong>Realtime</strong>
+</p>
+<div style="" class="realtime-box bg-info">
+    <div ng-repeat="t in traces" >
+        Topic:{{t.Topic}}&nbsp;&nbsp;
+        Level:{{t.Level}}&nbsp;&nbsp;
+        Message:{{t.Message}}&nbsp;&nbsp;
+    </div>
+</div>

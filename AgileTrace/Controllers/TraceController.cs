@@ -6,9 +6,11 @@ using AgileTrace.Filters;
 using AgileTrace.Models;
 using AgileTrace.Repository;
 using AgileTrace.Repository.Entity;
+using AgileTrace.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Newtonsoft.Json;
 
 namespace AgileTrace.Controllers
 {
@@ -31,6 +33,8 @@ namespace AgileTrace.Controllers
                     db.Traces.Add(model);
                     db.SaveChanges();
                 }
+
+                WebsocketService.SendToAll(JsonConvert.SerializeObject(model));
             }
 
             return "ok";

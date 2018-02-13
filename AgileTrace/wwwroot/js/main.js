@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ui.router', 'agile.bootstrap-pagebar','ngCookies']);
+﻿var app = angular.module('app', ['ui.router', 'agile.bootstrap-pagebar', 'ngCookies','ngAnimate']);
 app.config(function ($stateProvider, $urlRouterProvider) {
         var dashState = {
             name: 'dash',

@@ -38,7 +38,7 @@ namespace AgileTrace.Controllers
                     .OrderByDescending(t => t.Time)
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize).ToList();
-                var totalCount = db.Traces.Count();
+                var totalCount = db.Traces.Count(t => string.IsNullOrEmpty(appId) || t.AppId == appId);
 
                 return Json(new
                 {

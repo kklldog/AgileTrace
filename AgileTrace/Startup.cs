@@ -40,6 +40,12 @@ namespace AgileTrace
         {
             app.UseAuthentication();
             app.UseMiddleware<ExceptionHandlerMiddleware>();
+            app.UseWebSockets(new WebSocketOptions()
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(120),
+                ReceiveBufferSize = 4 * 1024
+            });
+            app.UseMiddleware<WebSocketHandlerMiddleware>();
             app.UseStatusCodePages();
             app.UseStaticFiles();
 
