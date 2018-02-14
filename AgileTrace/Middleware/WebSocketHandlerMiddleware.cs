@@ -22,7 +22,7 @@ namespace AgileTrace.Middleware
         {
             _next = next;
             _logger = loggerFactory.
-                CreateLogger<ExceptionHandlerMiddleware>();
+                CreateLogger<WebSocketHandlerMiddleware>();
         }
 
         public async Task Invoke(HttpContext context)

@@ -32,5 +32,15 @@ namespace AgileTrace.Services
 
             return app;
         }
+
+        public static bool Add(App app)
+        {
+           return Apps.TryAdd(app.Id,app);
+        }
+
+        public static bool Remove(App app)
+        {
+            return Apps.TryRemove(app.Id, out app);
+        }
     }
 }

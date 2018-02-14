@@ -20,7 +20,8 @@
     <strong>Realtime</strong>
 </p>
 <div style="" class="realtime-box bg-info">
-    <div ng-repeat="t in traces" >
+    <div ng-repeat="t in traces">
+        Time:{{t.Time|date:'yyyy-MM-dd HH:mm'}}&nbsp;&nbsp;
         Topic:{{t.Topic}}&nbsp;&nbsp;
         Level:{{t.Level}}&nbsp;&nbsp;
         Message:{{t.Message}}&nbsp;&nbsp;

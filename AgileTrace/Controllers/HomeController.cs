@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AgileTrace.Models;
 using AgileTrace.Repository;
 using AgileTrace.Repository.Entity;
+using AgileTrace.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AgileTrace.Controllers
@@ -70,9 +69,13 @@ namespace AgileTrace.Controllers
 
             using (var db = new TraceDbContext())
             {
-                model.Id = Guid.NewGuid().ToString("N");
+                if (string.IsNullOrEmpty(model.Id))
+                {
+                    model.Id = Guid.NewGuid().ToString("N");
+                }
                 db.Apps.Add(model);
                 db.SaveChanges();
+                AppService.Add(model);
 
                 return Json(true);
             }
@@ -99,6 +102,9 @@ namespace AgileTrace.Controllers
                 db.Apps.Update(app);
                 db.SaveChanges();
 
+                AppService.Remove(app);
+                AppService.Add(app);
+
                 return Json(true);
             }
         }
@@ -121,8 +127,15 @@ namespace AgileTrace.Controllers
                 db.Apps.Remove(app);
                 db.SaveChanges();
 
+                AppService.Remove(app);
+
                 return Json(true);
             }
+        }
+
+        public IActionResult GetHost()
+        {
+            return Json($"{HttpContext.Request.Host.Host}:{HttpContext.Request.Host.Port}");
         }
     }
 }

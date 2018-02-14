@@ -12,7 +12,8 @@
     $scope.showAddApp = function () {
         $scope.selectApp = {
             name: '',
-            securityKey: ''
+            securityKey: '',
+            isAdd:true
         };
         $('#popEditApp').modal('show');
     }
@@ -25,10 +26,10 @@
             .then(function (rep) {
                 if (rep.data) {
                     $('#popEditApp').modal('hide');
-                    alert('update successful 。');
+                    alert('edit successful 。');
                     getApps();
                 } else {
-                    alert('update fail 。');
+                    alert('edit fail 。');
                 }
             });
     }
@@ -59,7 +60,7 @@
     }
 
     $scope.doSave = function() {
-        if ($scope.selectApp.id) {
+        if (!$scope.selectApp.isAdd) {
             //update
             updateApp($scope.selectApp);
         } else {

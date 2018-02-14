@@ -14,7 +14,7 @@
         $('#popTraceDetail').modal('show');
     }
 
-    var getPageTrace = function (pageIndex) {
+    $scope.getPageTrace = function (pageIndex) {
         $scope.pageInfo.pageIndex = pageIndex;
         $http.get('/home/pagetrace?' +
             'appId=' + $scope.selectedAppId +
@@ -32,13 +32,12 @@
             .then(function (rep) {
                 $scope.apps = rep.data.result;
                 $scope.apps.unshift({ id: '',name:'all' });
-                getPageTrace(1);
-
+                $scope.getPageTrace(1);
             });
     }
 
     $scope.selectedAppIdChanged = function () {
-        getPageTrace(1);
+        $scope.getPageTrace(1);
     }
 
     getApps();

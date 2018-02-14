@@ -44,9 +44,9 @@
 
                     <ul class="nav navbar-nav navbar-right login">
                         <li>
-                            <a href="#">@("你好，" + User.Claims.First().Value + " !")</a>
+                            <a href="#">@("hi，" + User.Claims.First().Value)</a>
                         </li>
-                        <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Sign out</a></li>
                     </ul>
                 }
             </div>
