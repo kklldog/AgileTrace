@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AgileTrace.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Logging;
 
 namespace AgileTrace.Middleware
@@ -53,9 +54,9 @@ namespace AgileTrace.Middleware
             while (!result.CloseStatus.HasValue)
             {
                 await webSocket.SendAsync(new ArraySegment<byte>(buffer, 0, result.Count), result.MessageType, result.EndOfMessage, CancellationToken.None);
-
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
+            _logger.LogInformation($"websocket close , closeStatus:{webSocket.CloseStatus} closeDesc:{webSocket.CloseStatusDescription}");
             await WebsocketService.CloseClient(webSocket,result.CloseStatus.Value, result.CloseStatusDescription);
         }
     }

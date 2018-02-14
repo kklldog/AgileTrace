@@ -39,6 +39,7 @@ namespace AgileTrace.Services
         {
             Clients.TryTake(out client);
             await client.CloseAsync(closeStatus, closeDesc, CancellationToken.None);
+            client.Dispose();
         }
     }
 }
