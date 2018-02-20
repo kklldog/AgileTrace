@@ -4,10 +4,23 @@
 
 <div class="form-inline">
     App: <select class="form-control input-sm" 
-                ng-model="selectedAppId" 
-                ng-options="item.id as item.name for item in apps"
-                ng-change="selectedAppIdChanged()">
+                 ng-model="selectedAppId" 
+                 ng-options="item.id as item.name for item in apps"
+                 >
     </select>
+    Level: 
+         <select class="form-control input-sm"
+                 ng-model="logLevel">
+             <option value="">all</option>
+             <option value="Trace">Trace</option>
+             <option value="Debug">Debug</option>
+             <option value="Info">Info</option>
+             <option value="Warn">Warn</option>
+             <option value="Error">Error</option>
+             <option value="Fatal">Fatal</option>
+         </select>
+    
+    <button type="button" class="btn btn-primary btn-sm" ng-click="getPageTrace(1)">query</button>
 </div>
 <p></p>
 <table class="table table-bordered table-condensed table-responsive table-striped">

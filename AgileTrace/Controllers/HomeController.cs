@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -28,16 +29,20 @@ namespace AgileTrace.Controllers
             return View(viewName);
         }
 
-        public IActionResult PageTrace(string appId, int pageIndex, int pageSize)
+        public IActionResult PageTrace(string appId, string logLevel, int pageIndex, int pageSize)
         {
             using (var db = new TraceDbContext())
             {
-                var result = db.Traces
-                    .Where(t => string.IsNullOrEmpty(appId) || t.AppId == appId)
+                var page = db.Traces.Where(t =>
+               (string.IsNullOrEmpty(appId) || t.AppId == appId)
+                    && (string.IsNullOrEmpty(logLevel) || t.Level == logLevel))
                     .OrderByDescending(t => t.Time)
                     .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize).ToList();
-                var totalCount = db.Traces.Count(t => string.IsNullOrEmpty(appId) || t.AppId == appId);
+                    .Take(pageSize);
+                var result = page.ToList();
+                var totalCount = db.Traces.Count(t => 
+                                (string.IsNullOrEmpty(appId) || t.AppId == appId)
+                                 && (string.IsNullOrEmpty(logLevel) || t.Level == logLevel));
 
                 return Json(new
                 {
@@ -136,6 +141,22 @@ namespace AgileTrace.Controllers
         public IActionResult GetHost()
         {
             return Json($"{HttpContext.Request.Host.Host}:{HttpContext.Request.Host.Port}");
+        }
+
+        public IActionResult GetChartData([FromBody]List<string> levels)
+        {
+            using (var db = new TraceDbContext())
+            {
+                var gp = db.Traces.Where(t => levels.Contains(t.Level))
+                    .GroupBy(t => t.Level);
+                var result = gp.Select(g => new
+                {
+                    name = g.Key,
+                    value = g.Count()
+                }).ToList();
+
+                return Json(result);
+            }
         }
     }
 }

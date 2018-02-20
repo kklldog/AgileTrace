@@ -5,6 +5,7 @@
         totalPages: 10
     }
     $scope.selectedAppId = '';
+    $scope.logLevel = '';
     var pageSize = 15;
     $scope.rows = [];
     $scope.selectRow = {};
@@ -20,6 +21,7 @@
             'appId=' + $scope.selectedAppId +
             '&pageIndex=' + pageIndex
             + '&pageSize=' + pageSize
+            +'&logLevel='+$scope.logLevel
             + '&_=' + (new Date).getTime())
             .then(function (rep) {
                 $scope.rows = rep.data.result;
