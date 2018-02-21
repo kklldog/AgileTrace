@@ -1,8 +1,8 @@
 ﻿app.controller('queryCtrl', function ($scope, $http) {
     $scope.pageInfo = {
         pageIndex: 1,
-        showPages: 5,
-        totalPages: 10
+        showPages: 10,
+        totalPages: 0
     }
     $scope.selectedAppId = '';
     $scope.logLevel = '';

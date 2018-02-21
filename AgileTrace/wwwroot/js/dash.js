@@ -44,20 +44,23 @@ app.controller('dashCtrl', function ($scope, $http, websocket) {
             };
         });
 
-    var renderChart = function (category, data) {
-        var chart0 = echarts.init(document.getElementById('chart0'));
+    var newOption = function (category,title, data) {
         var option = {
+            title: {
+                text: title,
+                top: 20,
+                x:'center'
+            },
             tooltip: {
                 trigger: 'item',
                 formatter: "{a} <br/>{b} : {c} ({d}%)"
             },
-           
             series: [
                 {
                     name: 'LogLevel',
                     type: 'pie',
-                    radius: '55%',
-                    center: ['50%', '40%'],
+                    radius: '70%',
+                    center: ['50%', '50%'],
                     data: data,
                     itemStyle: {
                         emphasis: {
@@ -69,12 +72,18 @@ app.controller('dashCtrl', function ($scope, $http, websocket) {
                 }
             ]
         };
-        chart0.setOption(option);
+
+        return option;
     }
 
+    $scope.chartsOptions = [];
     var logLevels = ['Debug', 'Trace', 'Info', 'Warn', 'Error', 'Fatal'];
     $http.post('/home/getchartdata', logLevels)
         .then(function (rep) {
-            renderChart(logLevels, rep.data);
+            angular.forEach(rep.data, function (d) {
+                var title = !d.appName ? 'all' : d.appName;
+                var op = newOption(logLevels, title, d.data);
+                $scope.chartsOptions.push(op);
+            });
         });
 });

@@ -11,10 +11,17 @@
     div.ng-enter-active {
         opacity: 1;
     }
+
     .realtime-box {
         height: 100px;
         padding: 20px;
     }
+
+    .charts .chart {
+        height: 500px;
+        margin-top: 10px
+    }
+
 </style>
 <p>
     <strong>Realtime</strong>
@@ -27,6 +34,6 @@
         Message:{{t.Message}}&nbsp;&nbsp;
     </div>
 </div>
-<div class="charts">
-    <div id="chart0" style="height: 600%"></div>
+<div class="charts row">
+    <div class="chart col-md-6" echart chart-option="item" ng-repeat="item in chartsOptions"></div>
 </div>

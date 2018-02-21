@@ -40,7 +40,7 @@ namespace AgileTrace.Controllers
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize);
                 var result = page.ToList();
-                var totalCount = db.Traces.Count(t => 
+                var totalCount = db.Traces.Count(t =>
                                 (string.IsNullOrEmpty(appId) || t.AppId == appId)
                                  && (string.IsNullOrEmpty(logLevel) || t.Level == logLevel));
 
@@ -145,9 +145,30 @@ namespace AgileTrace.Controllers
 
         public IActionResult GetChartData([FromBody]List<string> levels)
         {
+            var result = new List<object>();
+            List<string> appIds = null;
             using (var db = new TraceDbContext())
             {
-                var gp = db.Traces.Where(t => levels.Contains(t.Level))
+                appIds = db.Apps.Select(a => a.Id).ToList();
+                appIds.Insert(0, "");
+               
+            }
+            foreach (var appId in appIds)
+            {
+                var data = AppChartData(appId, levels);
+                result.Add(data);
+            }
+
+            return Json(result);
+        }
+
+        private object AppChartData(string appId, List<string> levels)
+        {
+            using (var db = new TraceDbContext())
+            {
+                var appName = string.IsNullOrEmpty(appId) ? "" : AppService.Get(appId).Name;
+                var gp = db.Traces.Where(t => levels.Contains(t.Level)
+                && (string.IsNullOrEmpty(appId) || t.AppId == appId))
                     .GroupBy(t => t.Level);
                 var result = gp.Select(g => new
                 {
@@ -155,7 +176,11 @@ namespace AgileTrace.Controllers
                     value = g.Count()
                 }).ToList();
 
-                return Json(result);
+                return new
+                {
+                    appName,
+                    data = result
+                };
             }
         }
     }
