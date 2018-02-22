@@ -2,8 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using AgileTrace.Entity;
 using AgileTrace.Repository.Sqlite.Common;
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgileTrace.Repository.Sqlite
 {
@@ -37,18 +40,40 @@ namespace AgileTrace.Repository.Sqlite
 
         public object GroupLevel(List<string> levels, string appId)
         {
+            var result = new List<object>();
+            StringBuilder sql = new StringBuilder("select level,count(1) as amount from Traces t where 1=1 ");
+            if (levels != null)
+            {
+                var arr = levels.Select(l => string.Format("'{0}'", l)).ToArray();
+                var inConditon = string.Join(',', arr);
+                sql.AppendFormat(" and t.level in ({0}) ", inConditon);
+            }
+            if (!string.IsNullOrEmpty(appId))
+            {
+                sql.Append(" and t.AppId = @appId ");
+            }
+            sql.Append(" group by level ");
             using (var db = NewDbContext())
             {
-                var gp = db.Traces.Where(t => levels.Contains(t.Level)
-                                              && (string.IsNullOrEmpty(appId) || t.AppId == appId))
-                    .GroupBy(t => t.Level);
-                var result = gp.Select(g => new
+                using (var conn = db.Database.GetDbConnection())
                 {
-                    name = g.Key,
-                    value = g.Count()
-                }).ToList();
+                    conn.Open();
+                    var cmd = conn.CreateCommand();
+                    cmd.CommandText = sql.ToString();
+                    cmd.Parameters.Add(new SqliteParameter("@appId", appId));
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var name = reader.GetString(0);
+                            var value = reader.GetInt32(1);
 
-                return result;
+                            result.Add(new { name= name, value = value });
+                        }
+
+                        return result;
+                    }
+                }
             }
         }
     }
