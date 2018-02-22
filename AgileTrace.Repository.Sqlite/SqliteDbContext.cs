@@ -1,4 +1,5 @@
-﻿using AgileTrace.Entity;
+﻿using AgileTrace.Configuration;
+using AgileTrace.Entity;
 using AgileTrace.IRepository;
 using AgileTrace.Repository.Sqlite.Common;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,8 @@ namespace AgileTrace.Repository.Sqlite
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=agiletrace.db");
+            var conn = Config.Configuration["store:connection"];
+            optionsBuilder.UseSqlite(conn);
 #if DEBUG
             var lf = new LoggerFactory();
             lf.AddProvider(new EfLoggerProvider());

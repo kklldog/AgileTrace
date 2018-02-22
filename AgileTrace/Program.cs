@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
+using AgileTrace.Configuration;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using NLog.Web;
 
 namespace AgileTrace
 {
     public class Program
     {
-        public static IConfiguration Configuration { get; set; }
         public static void Main(string[] args)
         {
-            Configuration = new ConfigurationBuilder()
+            Config.Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json").Build();
+
             BuildWebHost(args).Run();
         }
 

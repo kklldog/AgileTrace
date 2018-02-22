@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AgileTrace.Configuration;
 using AgileTrace.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -21,8 +22,8 @@ namespace AgileTrace.Controllers
         [HttpPost]
         public async Task<IActionResult> Index([FromForm]LoginViewModel model)
         {
-            var userName = Program.Configuration["LoginUser:UserName"];
-            var password = Program.Configuration["LoginUser:Password"];
+            var userName = Config.Configuration["sa:name"];
+            var password = Config.Configuration["sa:password"];
             if (!(userName == model.UserName && password == model.Password))
             {
                 ModelState.Clear();
