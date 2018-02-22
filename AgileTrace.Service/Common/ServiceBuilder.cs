@@ -11,7 +11,7 @@ namespace AgileTrace.Service.Common
     {
         public static void AddBussinessService(this IServiceCollection services)
         {
-            services.AddSingleton<IAppCache, AppCache>();
+            services.AddScoped<IAppCache, AppCache>();
             services.AddSingleton<IWebsocketService, WebsocketService>();
         }
     }

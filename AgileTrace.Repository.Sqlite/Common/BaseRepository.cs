@@ -8,66 +8,49 @@ namespace AgileTrace.Repository.Sqlite.Common
 {
     public class BaseRepository<T> : IRepository<T> where T : class
     {
-        public TraceDbContext NewDbContext()
+        protected DbContext DbContext;
+        public BaseRepository(DbContext dbContext)
         {
-            return new TraceDbContext();
+            DbContext = dbContext;
         }
 
         public T Delete(T entity)
         {
-            using (var db = NewDbContext())
-            {
-                var et = db.Set<T>().Remove(entity).Entity;
-                db.SaveChanges();
+            var et = DbContext.Set<T>().Remove(entity).Entity;
+            DbContext.SaveChanges();
 
-                return et;
-            }
+            return et;
         }
 
         public IEnumerable<T> All()
         {
-            using (var db = NewDbContext())
-            {
-                return db.Set<T>().ToList();
-            }
+            return DbContext.Set<T>().ToList();
         }
 
         public T Get(object id)
         {
-            using (var db = NewDbContext())
-            {
-                return db.Set<T>().Find(id);
-            }
+            return DbContext.Set<T>().Find(id);
         }
 
         public T Insert(T entity)
         {
-            using (var db = NewDbContext())
-            {
-               var et = db.Set<T>().Add(entity).Entity;
-                db.SaveChanges();
+            var et = DbContext.Set<T>().Add(entity).Entity;
+            DbContext.SaveChanges();
 
-                return et;
-            }
+            return et;
         }
 
         public IEnumerable<T> Query(string sql,params object[] param)
         {
-            using (var db = NewDbContext())
-            {
-               return db.Set<T>().FromSql(sql, param).ToList();
-            }
+            return DbContext.Set<T>().FromSql(sql, param).ToList();
         }
 
         public T Update(T entity)
         {
-            using (var db = NewDbContext())
-            {
-                var et = db.Set<T>().Update(entity).Entity;
-                db.SaveChanges();
+            var et = DbContext.Set<T>().Update(entity).Entity;
+            DbContext.SaveChanges();
 
-                return et;
-            }
+            return et;
         }
     }
 }

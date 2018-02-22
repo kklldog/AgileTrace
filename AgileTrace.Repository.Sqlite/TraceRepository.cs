@@ -12,30 +12,28 @@ namespace AgileTrace.Repository.Sqlite
 {
     public class TraceRepository : BaseRepository<Trace>, ITraceRepository
     {
+        public TraceRepository(ISqliteDbContext dbContext) : base(dbContext as DbContext)
+        {
+        }
+
         public IEnumerable<Trace> Page(int pageIndex, int pageSize, string appId, string level)
         {
-            using (var db = NewDbContext())
-            {
-                var page = db.Traces.Where(t =>
-                        (string.IsNullOrEmpty(appId) || t.AppId == appId)
-                        && (string.IsNullOrEmpty(level) || t.Level == level))
-                    .OrderByDescending(t => t.Time)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize);
-                return page.ToList();
-            }
+            var page = DbContext.Set<Trace>().Where(t =>
+                    (string.IsNullOrEmpty(appId) || t.AppId == appId)
+                    && (string.IsNullOrEmpty(level) || t.Level == level))
+                .OrderByDescending(t => t.Time)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
+            return page.ToList();
         }
 
         public int Count(string appId, string level)
         {
-            using (var db = NewDbContext())
-            {
-                var count = db.Traces.Count(t =>
-                    (string.IsNullOrEmpty(appId) || t.AppId == appId)
-                    && (string.IsNullOrEmpty(level) || t.Level == level));
+            var count = DbContext.Set<Trace>().Count(t =>
+                (string.IsNullOrEmpty(appId) || t.AppId == appId)
+                && (string.IsNullOrEmpty(level) || t.Level == level));
 
-                return count;
-            }
+            return count;
         }
 
         public object GroupLevel(List<string> levels, string appId)
@@ -53,28 +51,26 @@ namespace AgileTrace.Repository.Sqlite
                 sql.Append(" and t.AppId = @appId ");
             }
             sql.Append(" group by level ");
-            using (var db = NewDbContext())
+            using (var conn = DbContext.Database.GetDbConnection())
             {
-                using (var conn = db.Database.GetDbConnection())
+                conn.Open();
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = sql.ToString();
+                cmd.Parameters.Add(new SqliteParameter("@appId", appId));
+                using (var reader = cmd.ExecuteReader())
                 {
-                    conn.Open();
-                    var cmd = conn.CreateCommand();
-                    cmd.CommandText = sql.ToString();
-                    cmd.Parameters.Add(new SqliteParameter("@appId", appId));
-                    using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var name = reader.GetString(0);
-                            var value = reader.GetInt32(1);
+                        var name = reader.GetString(0);
+                        var value = reader.GetInt32(1);
 
-                            result.Add(new { name= name, value = value });
-                        }
-
-                        return result;
+                        result.Add(new { name = name, value = value });
                     }
+
+                    return result;
                 }
             }
         }
+
     }
 }

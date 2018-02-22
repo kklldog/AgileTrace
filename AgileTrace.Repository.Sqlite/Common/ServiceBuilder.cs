@@ -10,10 +10,11 @@ namespace AgileTrace.Repository.Sqlite.Common
     {
         public static void AddSqliteRepository(this IServiceCollection services)
         {
-            services.AddSingleton<IAppRepository, AppRepository>();
-            services.AddSingleton<ITraceRepository, TraceRepository>();
+            services.AddScoped<ISqliteDbContext, SqliteDbContext>();
+            services.AddScoped<IAppRepository, AppRepository>();
+            services.AddScoped<ITraceRepository, TraceRepository>();
 
-            new TraceDbContext().InitTables();
+            new SqliteDbContext().InitTables();
         }
     }
 }
