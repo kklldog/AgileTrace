@@ -34,7 +34,7 @@ namespace AgileTrace.Middleware
                 {
                     _logger.LogError(
                         ex,
-                        $"When request {context.Request.Path} error , but not handled .\r\n {ex.Message} \r\n {ex.StackTrace}",
+                        $"When {context.Connection.RemoteIpAddress} request {context.Request.Path} error , but not handled .\r\n {ex.Message} \r\n {ex.StackTrace}",
                         ""
                         );
 

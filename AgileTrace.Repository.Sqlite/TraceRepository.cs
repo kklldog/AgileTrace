@@ -11,7 +11,7 @@ namespace AgileTrace.Repository.Sqlite
     {
         public IEnumerable<Trace> Page(int pageIndex, int pageSize, string appId, string level)
         {
-            using (var db = NewDbContext)
+            using (var db = NewDbContext())
             {
                 var page = db.Traces.Where(t =>
                         (string.IsNullOrEmpty(appId) || t.AppId == appId)
@@ -25,7 +25,7 @@ namespace AgileTrace.Repository.Sqlite
 
         public int Count(string appId, string level)
         {
-            using (var db = NewDbContext)
+            using (var db = NewDbContext())
             {
                 var count = db.Traces.Count(t =>
                     (string.IsNullOrEmpty(appId) || t.AppId == appId)
@@ -37,7 +37,7 @@ namespace AgileTrace.Repository.Sqlite
 
         public object GroupLevel(List<string> levels, string appId)
         {
-            using (var db = NewDbContext)
+            using (var db = NewDbContext())
             {
                 var gp = db.Traces.Where(t => levels.Contains(t.Level)
                                               && (string.IsNullOrEmpty(appId) || t.AppId == appId))

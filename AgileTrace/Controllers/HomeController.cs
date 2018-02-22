@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using AgileTrace.Entity;
 using AgileTrace.IRepository;
+using AgileTrace.IService;
 using Microsoft.AspNetCore.Mvc;
 using AgileTrace.Models;
-using AgileTrace.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AgileTrace.Controllers

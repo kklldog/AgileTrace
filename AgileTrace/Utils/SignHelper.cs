@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AgileTrace.Services
+namespace AgileTrace.Utils
 {
     public class SignHelper
     {

@@ -8,9 +8,9 @@ namespace AgileTrace.IRepository
         IEnumerable<T> All();
         T Get(object id);
 
-        void Update(T entity);
+        T Update(T entity);
 
-        void Delete(T entity);
+        T Delete(T entity);
 
         T Insert(T entity);
 

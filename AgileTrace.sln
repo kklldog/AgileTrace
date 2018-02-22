@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileTrace.Entity", "AgileT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileTrace.Repository.Sqlite", "AgileTrace.Repository.Sqlite\AgileTrace.Repository.Sqlite.csproj", "{764903E5-708A-407F-A829-049695AE667D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileTrace.IService", "AgileTrace.IService\AgileTrace.IService.csproj", "{2FB9CC0B-93D7-4A79-AD12-A889878931C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileTrace.Service", "AgileTrace.Service\AgileTrace.Service.csproj", "{5766F7B2-4C63-4FC2-AC35-7D7B75FF6673}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{764903E5-708A-407F-A829-049695AE667D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{764903E5-708A-407F-A829-049695AE667D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{764903E5-708A-407F-A829-049695AE667D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FB9CC0B-93D7-4A79-AD12-A889878931C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FB9CC0B-93D7-4A79-AD12-A889878931C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FB9CC0B-93D7-4A79-AD12-A889878931C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FB9CC0B-93D7-4A79-AD12-A889878931C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5766F7B2-4C63-4FC2-AC35-7D7B75FF6673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5766F7B2-4C63-4FC2-AC35-7D7B75FF6673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5766F7B2-4C63-4FC2-AC35-7D7B75FF6673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5766F7B2-4C63-4FC2-AC35-7D7B75FF6673}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

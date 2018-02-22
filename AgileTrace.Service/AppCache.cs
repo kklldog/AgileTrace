@@ -1,26 +1,16 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AgileTrace.Entity;
+﻿using AgileTrace.Entity;
 using AgileTrace.IRepository;
+using AgileTrace.IService;
+using System;
+using System.Collections.Concurrent;
 
-namespace AgileTrace.Services
+namespace AgileTrace.Service
 {
-    public interface IAppCache
-    {
-        App Get(string appId);
-        void Set(App app);
-
-        void Remove(string appId);
-    }
-
-    public class AppCache:IAppCache
+    public class AppCache : IAppCache
     {
         private static readonly ConcurrentDictionary<string, App> Apps = new ConcurrentDictionary<string, App>();
         private readonly IAppRepository _appRepository;
-        
+
         public AppCache(IAppRepository appRepository)
         {
             _appRepository = appRepository;

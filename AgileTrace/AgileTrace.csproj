@@ -26,7 +26,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AgileTrace.Entity\AgileTrace.Entity.csproj" />
+    <ProjectReference Include="..\AgileTrace.IService\AgileTrace.IService.csproj" />
     <ProjectReference Include="..\AgileTrace.Repository.Sqlite\AgileTrace.Repository.Sqlite.csproj" />
+    <ProjectReference Include="..\AgileTrace.Service\AgileTrace.Service.csproj" />
   </ItemGroup>
 
 </Project>

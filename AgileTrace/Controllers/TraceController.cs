@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using AgileTrace.Entity;
 using AgileTrace.Filters;
 using AgileTrace.IRepository;
+using AgileTrace.IService;
 using AgileTrace.Models;
-using AgileTrace.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace AgileTrace.Controllers
 {
-    [ServiceFilter(typeof(ValidSignAttribute))]
+    [TypeFilter(typeof(ValidSignAttribute))]
     [Produces("application/json")]
     [Route("api/Trace")]
     public class TraceController : Controller

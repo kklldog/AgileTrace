@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AgileTrace.Middleware;
-using AgileTrace.Repository;
 using AgileTrace.Repository.Sqlite.Common;
-using AgileTrace.Services;
+using AgileTrace.Service.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,9 +33,7 @@ namespace AgileTrace
             services.AddMvc();
 
             services.AddSqliteRepository();
-            services.AddSingleton<IAppCache, AppCache>();
-            services.AddSingleton<IWebsocketService, WebsocketService>();
-
+            services.AddBussinessService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

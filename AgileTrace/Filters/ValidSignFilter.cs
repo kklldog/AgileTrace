@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using AgileTrace.Services;
+using AgileTrace.IService;
+using AgileTrace.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -13,9 +14,11 @@ namespace AgileTrace.Filters
     public class ValidSignAttribute : ActionFilterAttribute
     {
         private readonly IAppCache _appCache;
-        public ValidSignAttribute(IAppCache appCache)
+        private readonly ILogger _logger;
+        public ValidSignAttribute(IAppCache appCache, ILoggerFactory loggerFactory)
         {
             _appCache = appCache;
+            _logger = loggerFactory.CreateLogger<ValidSignAttribute>();
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -48,7 +51,14 @@ namespace AgileTrace.Filters
 
             var rightSign = SignHelper.MakeApiSign(app.SecurityKey, signHeaders.time, signHeaders.requestid);
 
-            return signHeaders.sign.Equals(rightSign, StringComparison.CurrentCultureIgnoreCase);
+            var result = signHeaders.sign.Equals(rightSign, StringComparison.CurrentCultureIgnoreCase);
+
+            if (!result)
+            {
+                _logger.LogWarning($"Check sign faild,IP:{context.HttpContext.Connection.RemoteIpAddress} App:{signHeaders.appid} RightSign:{rightSign} wrongSign:{signHeaders.sign}");
+            }
+
+            return result;
         }
 
         private void SetSignFail(ActionExecutingContext context)
