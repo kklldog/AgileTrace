@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using AgileTrace.Entity;
+using AgileTrace.IRepository;
 using Microsoft.AspNetCore.Mvc;
 using AgileTrace.Models;
-using AgileTrace.Repository;
-using AgileTrace.Repository.Entity;
 using AgileTrace.Services;
 using Microsoft.AspNetCore.Authorization;
 
@@ -14,6 +14,16 @@ namespace AgileTrace.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private readonly IAppRepository _appRepository;
+        private readonly ITraceRepository _traceRepository;
+        private readonly IAppCache _appCache;
+        public HomeController(IAppRepository appRepository,ITraceRepository traceRepository,IAppCache appCache)
+        {
+            _appRepository = appRepository;
+            _traceRepository = traceRepository;
+            _appCache = appCache;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -31,38 +41,23 @@ namespace AgileTrace.Controllers
 
         public IActionResult PageTrace(string appId, string logLevel, int pageIndex, int pageSize)
         {
-            using (var db = new TraceDbContext())
-            {
-                var page = db.Traces.Where(t =>
-               (string.IsNullOrEmpty(appId) || t.AppId == appId)
-                    && (string.IsNullOrEmpty(logLevel) || t.Level == logLevel))
-                    .OrderByDescending(t => t.Time)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize);
-                var result = page.ToList();
-                var totalCount = db.Traces.Count(t =>
-                                (string.IsNullOrEmpty(appId) || t.AppId == appId)
-                                 && (string.IsNullOrEmpty(logLevel) || t.Level == logLevel));
+            var result = _traceRepository.Page(pageIndex, pageSize, appId, logLevel);
+            var totalCount = _traceRepository.Count(appId,logLevel);
 
-                return Json(new
-                {
-                    result,
-                    totalCount
-                });
-            }
+            return Json(new
+            {
+                result,
+                totalCount
+            });
         }
 
         public IActionResult Apps()
         {
-            using (var db = new TraceDbContext())
+            var result = _appRepository.All();
+            return Json(new
             {
-                var result = db.Apps.ToList();
-
-                return Json(new
-                {
-                    result,
-                });
-            }
+                result,
+            });
         }
 
         public IActionResult AddApp([FromBody]App model)
@@ -72,18 +67,14 @@ namespace AgileTrace.Controllers
                 return Json(false);
             }
 
-            using (var db = new TraceDbContext())
+            if (string.IsNullOrEmpty(model.Id))
             {
-                if (string.IsNullOrEmpty(model.Id))
-                {
-                    model.Id = Guid.NewGuid().ToString("N");
-                }
-                db.Apps.Add(model);
-                db.SaveChanges();
-                AppService.Add(model);
-
-                return Json(true);
+                model.Id = Guid.NewGuid().ToString("N");
             }
+
+            _appRepository.Insert(model);
+
+            return Json(true);
         }
 
         public IActionResult UpdateApp([FromBody]App model)
@@ -93,25 +84,19 @@ namespace AgileTrace.Controllers
                 return Json(false);
             }
 
-            using (var db = new TraceDbContext())
+            var app = _appRepository.Get(model.Id);
+            if (app == null)
             {
-                var app = db.Apps.Find(model.Id);
-                if (app == null)
-                {
-                    return Json(false);
-                }
-
-                app.Name = model.Name;
-                app.SecurityKey = model.SecurityKey;
-
-                db.Apps.Update(app);
-                db.SaveChanges();
-
-                AppService.Remove(app);
-                AppService.Add(app);
-
-                return Json(true);
+                return Json(false);
             }
+
+            app.Name = model.Name;
+            app.SecurityKey = model.SecurityKey;
+
+            _appRepository.Update(app);
+            _appCache.Remove(app.Id);
+
+            return Json(true);
         }
 
         public IActionResult DeleteApp(string id)
@@ -121,21 +106,17 @@ namespace AgileTrace.Controllers
                 return Json(false);
             }
 
-            using (var db = new TraceDbContext())
+            var app = _appRepository.Get(id);
+            if (app == null)
             {
-                var app = db.Apps.Find(id);
-                if (app == null)
-                {
-                    return Json(false);
-                }
-
-                db.Apps.Remove(app);
-                db.SaveChanges();
-
-                AppService.Remove(app);
-
-                return Json(true);
+                return Json(false);
             }
+
+
+            _appRepository.Delete(app);
+            _appCache.Remove(app.Id);
+
+            return Json(true);
         }
 
         public IActionResult GetHost()
@@ -147,12 +128,8 @@ namespace AgileTrace.Controllers
         {
             var result = new List<object>();
             List<string> appIds = null;
-            using (var db = new TraceDbContext())
-            {
-                appIds = db.Apps.Select(a => a.Id).ToList();
-                appIds.Insert(0, "");
-               
-            }
+            appIds = _appRepository.All().Select(a => a.Id).ToList();
+            appIds.Insert(0, "");
             foreach (var appId in appIds)
             {
                 var data = AppChartData(appId, levels);
@@ -164,24 +141,14 @@ namespace AgileTrace.Controllers
 
         private object AppChartData(string appId, List<string> levels)
         {
-            using (var db = new TraceDbContext())
-            {
-                var appName = string.IsNullOrEmpty(appId) ? "" : AppService.Get(appId).Name;
-                var gp = db.Traces.Where(t => levels.Contains(t.Level)
-                && (string.IsNullOrEmpty(appId) || t.AppId == appId))
-                    .GroupBy(t => t.Level);
-                var result = gp.Select(g => new
-                {
-                    name = g.Key,
-                    value = g.Count()
-                }).ToList();
+            var appName = string.IsNullOrEmpty(appId) ? "" : _appCache.Get(appId).Name;
+            var result = _traceRepository.GroupLevel(levels, appId);
 
-                return new
-                {
-                    appName,
-                    data = result
-                };
-            }
+            return new
+            {
+                appName,
+                data = result
+            };
         }
     }
 }

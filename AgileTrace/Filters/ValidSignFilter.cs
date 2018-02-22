@@ -12,6 +12,12 @@ namespace AgileTrace.Filters
 {
     public class ValidSignAttribute : ActionFilterAttribute
     {
+        private readonly IAppCache _appCache;
+        public ValidSignAttribute(IAppCache appCache)
+        {
+            _appCache = appCache;
+        }
+
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var sign = context.HttpContext.Request.Headers.FirstOrDefault(h => h.Key == "sign");
@@ -32,8 +38,7 @@ namespace AgileTrace.Filters
         private bool CheckSign(ActionExecutingContext context)
         {
             var signHeaders = GetSignHeaders(context);
-
-            var app = AppService.Get(signHeaders.appid);
+            var app = _appCache.Get(signHeaders.appid);
             if (app == null)
             {
                 SetSignFail(context);
@@ -41,7 +46,7 @@ namespace AgileTrace.Filters
                 return false;
             }
 
-            var rightSign = SignService.MakeApiSign(app.SecurityKey, signHeaders.time, signHeaders.requestid);
+            var rightSign = SignHelper.MakeApiSign(app.SecurityKey, signHeaders.time, signHeaders.requestid);
 
             return signHeaders.sign.Equals(rightSign, StringComparison.CurrentCultureIgnoreCase);
         }

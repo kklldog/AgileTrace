@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgileTrace.Repository\AgileTrace.Repository.csproj" />
+    <ProjectReference Include="..\AgileTrace.Entity\AgileTrace.Entity.csproj" />
+    <ProjectReference Include="..\AgileTrace.Repository.Sqlite\AgileTrace.Repository.Sqlite.csproj" />
   </ItemGroup>
 
 </Project>

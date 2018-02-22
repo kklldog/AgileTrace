@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace AgileTrace.Repository.Entity
+namespace AgileTrace.Entity
 {
     public class App
     {

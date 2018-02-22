@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AgileTrace.Entity;
 using AgileTrace.Filters;
+using AgileTrace.IRepository;
 using AgileTrace.Models;
-using AgileTrace.Repository;
-using AgileTrace.Repository.Entity;
 using AgileTrace.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +14,19 @@ using Newtonsoft.Json;
 
 namespace AgileTrace.Controllers
 {
-    [ValidSign]
+    [ServiceFilter(typeof(ValidSignAttribute))]
     [Produces("application/json")]
     [Route("api/Trace")]
     public class TraceController : Controller
     {
+        private readonly ITraceRepository _traceRepository;
+        private readonly IWebsocketService _websocketService;
+        public TraceController(ITraceRepository traceRepository, IWebsocketService websocketService)
+        {
+            _traceRepository = traceRepository;
+            _websocketService = websocketService;
+        }
+
         [HttpPost]
         public string Post([FromBody]Trace model)
         {
@@ -28,13 +36,9 @@ namespace AgileTrace.Controllers
                     .Value.ToArray()[0];
                 model.AppId = appId;
                 model.Time = DateTime.Now;
-                using (var db = new TraceDbContext())
-                {
-                    db.Traces.Add(model);
-                    db.SaveChanges();
-                }
+                _traceRepository.Insert(model);
 
-                WebsocketService.SendToAll(JsonConvert.SerializeObject(model));
+                _websocketService.SendToAll(JsonConvert.SerializeObject(model));
             }
 
             return "ok";

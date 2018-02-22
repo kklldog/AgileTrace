@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AgileTrace.Services
 {
-    public class SignService
+    public class SignHelper
     {
         public static string MakeApiSign(string securityKey, string time, string requestId)
         {

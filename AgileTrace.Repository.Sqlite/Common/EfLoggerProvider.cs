@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.Logging;
 
-namespace AgileTrace.Repository
+namespace AgileTrace.Repository.Sqlite.Common
 {
     public class EfLoggerProvider : ILoggerProvider
     {

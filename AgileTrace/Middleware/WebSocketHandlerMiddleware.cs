@@ -16,14 +16,16 @@ namespace AgileTrace.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
+        private readonly IWebsocketService _websocketService;
 
         public WebSocketHandlerMiddleware(
             RequestDelegate next,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,IWebsocketService websocketService)
         {
             _next = next;
             _logger = loggerFactory.
                 CreateLogger<WebSocketHandlerMiddleware>();
+            _websocketService = websocketService;
         }
 
         public async Task Invoke(HttpContext context)
@@ -33,7 +35,7 @@ namespace AgileTrace.Middleware
                 if (context.WebSockets.IsWebSocketRequest)
                 {
                     WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
-                    WebsocketService.AddClient(webSocket);
+                    _websocketService.AddClient(webSocket);
                     await Echo(context, webSocket);
                 }
                 else
@@ -57,7 +59,7 @@ namespace AgileTrace.Middleware
                 result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
             _logger.LogInformation($"websocket close , closeStatus:{webSocket.CloseStatus} closeDesc:{webSocket.CloseStatusDescription}");
-            await WebsocketService.CloseClient(webSocket,result.CloseStatus.Value, result.CloseStatusDescription);
+            await _websocketService.CloseClient(webSocket,result.CloseStatus.Value, result.CloseStatusDescription);
         }
     }
 }
