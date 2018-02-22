@@ -30,6 +30,7 @@ namespace AgileTrace
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => {
                 options.LoginPath = "/Login";
             });
+            services.AddMemoryCache();
             services.AddMvc();
 
             services.AddSqliteRepository();

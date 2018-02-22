@@ -8,6 +8,7 @@ using AgileTrace.IService;
 using Microsoft.AspNetCore.Mvc;
 using AgileTrace.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AgileTrace.Controllers
 {
@@ -17,11 +18,16 @@ namespace AgileTrace.Controllers
         private readonly IAppRepository _appRepository;
         private readonly ITraceRepository _traceRepository;
         private readonly IAppCache _appCache;
-        public HomeController(IAppRepository appRepository,ITraceRepository traceRepository,IAppCache appCache)
+        private readonly IMemoryCache _memoryCache;
+        public HomeController(IAppRepository appRepository,
+            ITraceRepository traceRepository,
+            IAppCache appCache,
+            IMemoryCache memoryCache)
         {
             _appRepository = appRepository;
             _traceRepository = traceRepository;
             _appCache = appCache;
+            _memoryCache = memoryCache;
         }
 
         public IActionResult Index()
@@ -126,7 +132,14 @@ namespace AgileTrace.Controllers
 
         public IActionResult GetChartData([FromBody]List<string> levels)
         {
-            var result = new List<object>();
+            const string cacheKey = "DashChatData";
+            _memoryCache.TryGetValue(cacheKey, out List<object> result);
+            if (result!=null)
+            {
+                return Json(result); 
+            }
+
+            result = new List<object>();
             List<string> appIds = null;
             appIds = _appRepository.All().Select(a => a.Id).ToList();
             appIds.Insert(0, "");
@@ -135,6 +148,10 @@ namespace AgileTrace.Controllers
                 var data = AppChartData(appId, levels);
                 result.Add(data);
             }
+
+            var cacheEntryOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromHours(12));
+            _memoryCache.Set(cacheKey, result, cacheEntryOptions);
 
             return Json(result);
         }

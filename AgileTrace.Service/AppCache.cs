@@ -1,6 +1,7 @@
 ﻿using AgileTrace.Entity;
 using AgileTrace.IRepository;
 using AgileTrace.IService;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Concurrent;
 
@@ -8,17 +9,19 @@ namespace AgileTrace.Service
 {
     public class AppCache : IAppCache
     {
-        private static readonly ConcurrentDictionary<string, App> Apps = new ConcurrentDictionary<string, App>();
         private readonly IAppRepository _appRepository;
+        private readonly IMemoryCache _memoryCache;
 
-        public AppCache(IAppRepository appRepository)
+        public AppCache(IAppRepository appRepository, IMemoryCache memoryCache)
         {
             _appRepository = appRepository;
+            _memoryCache = memoryCache;
         }
 
         public App Get(string appId)
         {
-            Apps.TryGetValue(appId, out App app);
+            var key = $"app_{appId}";
+            _memoryCache.TryGetValue(key, out App app);
 
             if (app != null)
             {
@@ -28,7 +31,7 @@ namespace AgileTrace.Service
             app = _appRepository.Get(appId);
             if (app != null)
             {
-                Apps.TryAdd(appId, app);
+                _memoryCache.Set(key, app);
             }
 
             return app;
@@ -36,13 +39,14 @@ namespace AgileTrace.Service
 
         public void Set(App app)
         {
-            Apps.TryRemove(app.Id, out App oapp);
-            Apps.TryAdd(app.Id, app);
+            var key = $"app_{app.Id}";
+            _memoryCache.Set(key, app);
         }
 
         public void Remove(string appId)
         {
-            Apps.TryRemove(appId, out App oapp);
+            var key = $"app_{appId}";
+            _memoryCache.Remove(key);
         }
     }
 }
