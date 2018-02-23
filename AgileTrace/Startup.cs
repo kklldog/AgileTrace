@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AgileTrace.Configuration;
 using AgileTrace.Middleware;
+using AgileTrace.Repository.MongoDb.Ext;
 using AgileTrace.Repository.Sql.Ext;
 using AgileTrace.Service.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -32,9 +34,21 @@ namespace AgileTrace
             });
             services.AddMemoryCache();
             services.AddMvc();
-
-            services.AddSqlRepository();
+            AddRepository(services);
             services.AddBussinessService();
+        }
+
+        private void AddRepository(IServiceCollection services)
+        {
+            string storeType = Config.AppSetting.store.type;
+            if (storeType == "sqlite" || storeType == "sqlserver")
+            {
+                services.AddSqlRepository();
+            }
+            else if (storeType == "mongodb")
+            {
+                services.AddMongoDbRepository();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

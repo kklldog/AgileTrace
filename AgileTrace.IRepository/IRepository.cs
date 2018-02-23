@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using AgileTrace.Entity;
 
 namespace AgileTrace.IRepository
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : IEntity
     {
         IEnumerable<T> All();
         T Get(object id);

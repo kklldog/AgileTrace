@@ -6,7 +6,7 @@ using AgileTrace.Repository.Common;
 
 namespace AgileTrace.Repository.Sql
 {
-    public class AppRepository : BaseRepository<App>, IAppRepository
+    public class AppRepository : SqlRepository<App>, IAppRepository
     {
         public AppRepository(IDbContext dbContext) : base(dbContext as DbContext)
         {

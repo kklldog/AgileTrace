@@ -2,7 +2,7 @@
 
 namespace AgileTrace.Entity
 {
-    public class Trace
+    public class Trace:IEntity
     {
         public string Id { get; set; }
 

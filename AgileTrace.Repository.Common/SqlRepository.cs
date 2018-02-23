@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AgileTrace.Entity;
 using AgileTrace.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgileTrace.Repository.Common
 {
-    public class BaseRepository<T> : IRepository<T> where T : class
+    public class SqlRepository<T> : IRepository<T> where T : class, IEntity
     {
         protected DbContext DbContext;
-        public BaseRepository(DbContext dbContext)
+        public SqlRepository(DbContext dbContext)
         {
             DbContext = dbContext;
         }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AgileTrace.Repository.Sql
 {
-    public class TraceRepository : BaseRepository<Trace>, ITraceRepository
+    public class TraceRepository : SqlRepository<Trace>, ITraceRepository
     {
         public TraceRepository(IDbContext dbContext) : base(dbContext as DbContext)
         {

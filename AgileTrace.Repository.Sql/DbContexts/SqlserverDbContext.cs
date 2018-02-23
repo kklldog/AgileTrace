@@ -12,7 +12,7 @@ namespace AgileTrace.Repository.Sql.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var conn = Config.Configuration["store:connection"];
+            string conn = Config.AppSetting.store.connection;
             optionsBuilder.UseSqlServer(conn);
 #if DEBUG
             var lf = new LoggerFactory();
