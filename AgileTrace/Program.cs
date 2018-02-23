@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Net;
 using AgileTrace.Configuration;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +22,10 @@ namespace AgileTrace
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseKestrel(options =>
+                {
+                    options.Listen(IPAddress.Loopback, 5000);
+                })
                 .UseNLog()
                 .Build();
     }
