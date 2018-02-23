@@ -5,9 +5,9 @@ using AgileTrace.Repository.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace AgileTrace.Repository.Sqlite
+namespace AgileTrace.Repository.Sql.DbContexts
 {
-    public class SqliteDbContext : DbContext, ISqliteDbContext
+    public class SqliteDbContext : DbContext, IDbContext
     {
         public DbSet<Trace> Traces { get; set; }
         public DbSet<App> Apps { get; set; }
@@ -15,8 +15,9 @@ namespace AgileTrace.Repository.Sqlite
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var conn = Config.Configuration["store:connection"];
+            string conn = Config.AppSetting.store.connection;
             optionsBuilder.UseSqlite(conn);
+
 #if DEBUG
             var lf = new LoggerFactory();
             lf.AddProvider(new EfLoggerProvider());
@@ -24,9 +25,10 @@ namespace AgileTrace.Repository.Sqlite
 #endif
         }
 
-        public void InitTables()
+        public virtual void InitTables()
         {
             this.Database.EnsureCreated();
         }
+
     }
 }

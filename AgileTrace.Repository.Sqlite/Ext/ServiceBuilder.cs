@@ -4,7 +4,7 @@ using System.Text;
 using AgileTrace.IRepository;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AgileTrace.Repository.Sqlite.Common
+namespace AgileTrace.Repository.Sqlite.Ext
 {
     public static class ServiceBuilder
     {

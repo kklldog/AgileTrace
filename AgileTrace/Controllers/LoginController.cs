@@ -22,8 +22,9 @@ namespace AgileTrace.Controllers
         [HttpPost]
         public async Task<IActionResult> Index([FromForm]LoginViewModel model)
         {
-            var userName = Config.Configuration["sa:name"];
-            var password = Config.Configuration["sa:password"];
+            string userName = Config.AppSetting.sa.name;
+            string password = Config.AppSetting.sa.password;
+
             if (!(userName == model.UserName && password == model.Password))
             {
                 ModelState.Clear();

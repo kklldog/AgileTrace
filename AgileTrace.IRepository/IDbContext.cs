@@ -4,8 +4,8 @@ using System.Text;
 
 namespace AgileTrace.IRepository
 {
-    public interface ISqliteDbContext
+    public interface IDbContext
     {
-
+        void InitTables();
     }
 }

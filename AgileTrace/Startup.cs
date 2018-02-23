@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AgileTrace.Middleware;
-using AgileTrace.Repository.Sqlite.Common;
+using AgileTrace.Repository.Sql.Ext;
 using AgileTrace.Service.Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +33,7 @@ namespace AgileTrace
             services.AddMemoryCache();
             services.AddMvc();
 
-            services.AddSqliteRepository();
+            services.AddSqlRepository();
             services.AddBussinessService();
         }
 

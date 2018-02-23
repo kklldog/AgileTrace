@@ -46,7 +46,7 @@
             });
     }
     $scope.deleteApp = function (app) {
-        var result = confirm('确定删除？');
+        var result = confirm('delete ？');
         if (result) {
             $http.post('/home/DeleteApp?id=' + app.id)
                 .then(function (rep) {

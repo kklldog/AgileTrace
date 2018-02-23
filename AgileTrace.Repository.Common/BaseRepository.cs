@@ -4,7 +4,7 @@ using System.Linq;
 using AgileTrace.IRepository;
 using Microsoft.EntityFrameworkCore;
 
-namespace AgileTrace.Repository.Sqlite.Common
+namespace AgileTrace.Repository.Common
 {
     public class BaseRepository<T> : IRepository<T> where T : class
     {

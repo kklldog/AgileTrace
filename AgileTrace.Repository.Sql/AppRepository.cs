@@ -4,11 +4,11 @@ using AgileTrace.Entity;
 using Microsoft.EntityFrameworkCore;
 using AgileTrace.Repository.Common;
 
-namespace AgileTrace.Repository.Sqlite
+namespace AgileTrace.Repository.Sql
 {
     public class AppRepository : BaseRepository<App>, IAppRepository
     {
-        public AppRepository(ISqliteDbContext dbContext) : base(dbContext as DbContext)
+        public AppRepository(IDbContext dbContext) : base(dbContext as DbContext)
         {
         }
     }
