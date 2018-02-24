@@ -27,7 +27,7 @@ namespace AgileTrace.Repository.Common
 
         public T Get(object id)
         {
-            var filter = Builders<T>.Filter.Eq("_id", new ObjectId(id.ToString()));
+            var filter = Builders<T>.Filter.Eq("_id", id.ToString());
             return Database.GetCollection<T>(CollectionName).Find(filter).FirstOrDefault();
         }
 
@@ -41,7 +41,7 @@ namespace AgileTrace.Repository.Common
 
         public T Delete(T entity)
         {
-            var filter = Builders<T>.Filter.Eq("_id", new ObjectId(entity.Id));
+            var filter = Builders<T>.Filter.Eq("_id", entity.Id);
             Database.GetCollection<T>(CollectionName).DeleteOne(filter) ;
 
             return entity;
