@@ -24,7 +24,7 @@ namespace AgileTrace
                 .UseStartup<Startup>()
                 .UseKestrel(options =>
                 {
-                    options.Listen(IPAddress.Loopback, 5000);
+                    options.Listen(IPAddress.Any, 5000);
                 })
                 .UseNLog()
                 .Build();
