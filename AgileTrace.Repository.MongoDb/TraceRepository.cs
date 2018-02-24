@@ -39,11 +39,14 @@ namespace AgileTrace.Repository.MongoDb
             foreach (var level in levels)
             {
                 var value = Count(appId, level);
-                result.Add(new
+                if (value>0)
                 {
-                    name = level,
-                    value
-                });
+                    result.Add(new
+                    {
+                        name = level,
+                        value
+                    });
+                }
             }
 
             return result;
