@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace AgileTrace.IService
 {
+    public class WebsocketClient
+    {
+        public string Id { get; set; }
+
+        public WebSocket Client { get; set; }
+    }
+
     public interface IWebsocketService
     {
         void SendToAll(string message);
-        Task SendOne(WebSocket client, string message);
-        void AddClient(WebSocket client);
+        Task SendOne(WebsocketClient client, string message);
+        void AddClient(WebsocketClient client);
 
-        Task CloseClient(WebSocket client, WebSocketCloseStatus closeStatus, string closeDesc);
+        Task CloseClient(WebsocketClient client, WebSocketCloseStatus closeStatus, string closeDesc);
     }
 }

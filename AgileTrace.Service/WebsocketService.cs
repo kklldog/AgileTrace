@@ -11,35 +11,35 @@ namespace AgileTrace.Service
 {
     public class WebsocketService : IWebsocketService
     {
-        private static readonly ConcurrentBag<WebSocket> Clients = new ConcurrentBag<WebSocket>();
+        private static readonly ConcurrentDictionary<string, WebsocketClient> Clients = new ConcurrentDictionary<string, WebsocketClient>();
 
         public void SendToAll(string message)
         {
             var data = Encoding.UTF8.GetBytes(message);
-            foreach (var webSocket in Clients)
+            foreach (var webSocket in Clients.Values)
             {
-                webSocket.SendAsync(new ArraySegment<byte>(data, 0, data.Length), WebSocketMessageType.Text, true,
+                webSocket.Client.SendAsync(new ArraySegment<byte>(data, 0, data.Length), WebSocketMessageType.Text, true,
                     CancellationToken.None);
             }
         }
 
-        public async Task SendOne(WebSocket client, string message)
+        public async Task SendOne(WebsocketClient client, string message)
         {
             var data = Encoding.UTF8.GetBytes(message);
-            await client.SendAsync(new ArraySegment<byte>(data, 0, data.Length), WebSocketMessageType.Text, true,
+            await client.Client.SendAsync(new ArraySegment<byte>(data, 0, data.Length), WebSocketMessageType.Text, true,
                 CancellationToken.None);
         }
 
-        public void AddClient(WebSocket client)
+        public void AddClient(WebsocketClient client)
         {
-            Clients.Add(client);
+            Clients.TryAdd(client.Id, client);
         }
 
-        public async Task CloseClient(WebSocket client, WebSocketCloseStatus closeStatus, string closeDesc)
+        public async Task CloseClient(WebsocketClient client, WebSocketCloseStatus closeStatus, string closeDesc)
         {
-            Clients.TryTake(out client);
-            await client.CloseAsync(closeStatus, closeDesc, CancellationToken.None);
-            client.Dispose();
+            Clients.TryRemove(client.Id, out client);
+            await client.Client.CloseAsync(closeStatus, closeDesc, CancellationToken.None);
+            client.Client.Dispose();
         }
     }
 }
