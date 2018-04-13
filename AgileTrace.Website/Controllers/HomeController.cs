@@ -17,16 +17,13 @@ namespace AgileTrace.Controllers
     {
         private readonly IAppRepository _appRepository;
         private readonly ITraceRepository _traceRepository;
-        private readonly IAppCache _appCache;
         private readonly IMemoryCache _memoryCache;
         public HomeController(IAppRepository appRepository,
             ITraceRepository traceRepository,
-            IAppCache appCache,
             IMemoryCache memoryCache)
         {
             _appRepository = appRepository;
             _traceRepository = traceRepository;
-            _appCache = appCache;
             _memoryCache = memoryCache;
         }
 
@@ -55,74 +52,6 @@ namespace AgileTrace.Controllers
                 result,
                 totalCount
             });
-        }
-
-        public IActionResult Apps()
-        {
-            var result = _appRepository.All();
-            return Json(new
-            {
-                result,
-            });
-        }
-
-        public IActionResult AddApp([FromBody]App model)
-        {
-            if (model == null || string.IsNullOrEmpty(model.Name) || string.IsNullOrEmpty(model.SecurityKey))
-            {
-                return Json(false);
-            }
-
-            if (string.IsNullOrEmpty(model.Id))
-            {
-                model.Id = Guid.NewGuid().ToString("N");
-            }
-
-            _appRepository.Insert(model);
-
-            return Json(true);
-        }
-
-        public IActionResult UpdateApp([FromBody]App model)
-        {
-            if (model == null || string.IsNullOrEmpty(model.Id))
-            {
-                return Json(false);
-            }
-
-            var app = _appRepository.Get(model.Id);
-            if (app == null)
-            {
-                return Json(false);
-            }
-
-            app.Name = model.Name;
-            app.SecurityKey = model.SecurityKey;
-
-            _appRepository.Update(app);
-            _appCache.Remove(app.Id);
-
-            return Json(true);
-        }
-
-        public IActionResult DeleteApp(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                return Json(false);
-            }
-
-            var app = _appRepository.Get(id);
-            if (app == null)
-            {
-                return Json(false);
-            }
-
-
-            _appRepository.Delete(app);
-            _appCache.Remove(app.Id);
-
-            return Json(true);
         }
 
         public IActionResult GetHost()
@@ -158,7 +87,13 @@ namespace AgileTrace.Controllers
 
         private object AppChartData(string appId, List<string> levels)
         {
-            var appName = string.IsNullOrEmpty(appId) ? "" : _appCache.Get(appId).Name;
+            var app = _memoryCache.Get<App>($"app_{appId}");
+            if (app == null)
+            {
+                app = _appRepository.Get(appId);
+            }
+
+            var appName = string.IsNullOrEmpty(appId) ? "" : app.Name;
             var result = _traceRepository.GroupLevel(levels, appId);
 
             return new

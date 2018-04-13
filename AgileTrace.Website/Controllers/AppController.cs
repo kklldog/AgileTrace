@@ -16,14 +16,13 @@ namespace AgileTrace.Controllers
     public class AppController : Controller
     {
         private readonly IAppRepository _appRepository;
-        private readonly IAppCache _appCache;
+        private readonly IMemoryCache _memoryCache;
         public AppController(IAppRepository appRepository,
             ITraceRepository traceRepository,
-            IAppCache appCache,
             IMemoryCache memoryCache)
         {
             _appRepository = appRepository;
-            _appCache = appCache;
+            _memoryCache = memoryCache;
         }
 
         public IActionResult Apps()
@@ -69,7 +68,7 @@ namespace AgileTrace.Controllers
             app.SecurityKey = model.SecurityKey;
 
             _appRepository.Update(app);
-            _appCache.Remove(app.Id);
+            _memoryCache.Remove($"app_{app.Id}");
 
             return Json(true);
         }
@@ -87,9 +86,8 @@ namespace AgileTrace.Controllers
                 return Json(false);
             }
 
-
             _appRepository.Delete(app);
-            _appCache.Remove(app.Id);
+            _memoryCache.Remove($"app_{app.Id}");
 
             return Json(true);
         }

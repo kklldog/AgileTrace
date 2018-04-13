@@ -48,7 +48,7 @@
     $scope.deleteApp = function (app) {
         var result = confirm('delete ？');
         if (result) {
-            $http.post('/home/DeleteApp?id=' + app.id)
+            $http.post('/app/DeleteApp?id=' + app.id)
                 .then(function (rep) {
                     if (rep.data) {
                         getApps();
@@ -64,7 +64,10 @@
             alert('App name can not empty !');
             return;
         }
-
+        if (!$scope.selectApp.securityKey) {
+            alert('App securityKey can not empty !');
+            return;
+        }
         if (!$scope.selectApp.isAdd) {
             //update
             updateApp($scope.selectApp);
