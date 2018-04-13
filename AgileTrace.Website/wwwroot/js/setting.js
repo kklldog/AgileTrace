@@ -3,7 +3,7 @@
     $scope.selectApp = {};
 
     var getApps = function () {
-        $http.get('/home/apps?_=' + (new Date).getTime())
+        $http.get('/app/apps?_=' + (new Date).getTime())
             .then(function (rep) {
                 $scope.rows = rep.data.result;
             });
@@ -22,7 +22,7 @@
         $('#popEditApp').modal('show');
     }
     var updateApp = function (app) {
-        $http.post('/home/updateApp', app)
+        $http.post('/app/updateApp', app)
             .then(function (rep) {
                 if (rep.data) {
                     $('#popEditApp').modal('hide');
@@ -34,7 +34,7 @@
             });
     }
     var addApp = function (app) {
-        $http.post('/home/addApp', app)
+        $http.post('/app/addApp', app)
             .then(function (rep) {
                 if (rep.data) {
                     $('#popEditApp').modal('hide');
@@ -59,7 +59,12 @@
         }
     }
 
-    $scope.doSave = function() {
+    $scope.doSave = function () {
+        if (!$scope.selectApp.name) {
+            alert('App name can not empty !');
+            return;
+        }
+
         if (!$scope.selectApp.isAdd) {
             //update
             updateApp($scope.selectApp);

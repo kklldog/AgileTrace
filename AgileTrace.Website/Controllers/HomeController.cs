@@ -48,7 +48,7 @@ namespace AgileTrace.Controllers
         public IActionResult PageTrace(string appId, string logLevel, int pageIndex, int pageSize)
         {
             var result = _traceRepository.Page(pageIndex, pageSize, appId, logLevel);
-            var totalCount = _traceRepository.Count(appId,logLevel);
+            var totalCount = _traceRepository.Count(appId, logLevel);
 
             return Json(new
             {
@@ -134,9 +134,9 @@ namespace AgileTrace.Controllers
         {
             const string cacheKey = "DashChatData";
             _memoryCache.TryGetValue(cacheKey, out List<object> result);
-            if (result!=null)
+            if (result != null)
             {
-                return Json(result); 
+                return Json(result);
             }
 
             result = new List<object>();

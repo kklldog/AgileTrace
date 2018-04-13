@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace", "AgileTrace\AgileTrace.csproj", "{7ED5459C-7693-43C7-B355-21727E13A4AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace.Website", "AgileTrace.Website\AgileTrace.Website.csproj", "{7ED5459C-7693-43C7-B355-21727E13A4AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace.IRepository", "AgileTrace.IRepository\AgileTrace.IRepository.csproj", "{40FD6B57-7517-46C0-89DF-B2E3A15F41C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "20 AgileTrace.IRepository", "AgileTrace.IRepository\20 AgileTrace.IRepository.csproj", "{40FD6B57-7517-46C0-89DF-B2E3A15F41C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace.Entity", "AgileTrace.Entity\AgileTrace.Entity.csproj", "{BB3ADC63-5D69-46A3-96F2-9133355604BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10 AgileTrace.Entity", "AgileTrace.Entity\10 AgileTrace.Entity.csproj", "{BB3ADC63-5D69-46A3-96F2-9133355604BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace.IService", "AgileTrace.IService\AgileTrace.IService.csproj", "{2FB9CC0B-93D7-4A79-AD12-A889878931C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "30 AgileTrace.IService", "AgileTrace.IService\30 AgileTrace.IService.csproj", "{2FB9CC0B-93D7-4A79-AD12-A889878931C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace.Service", "AgileTrace.Service\AgileTrace.Service.csproj", "{5766F7B2-4C63-4FC2-AC35-7D7B75FF6673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "31 AgileTrace.Service", "AgileTrace.Service\31 AgileTrace.Service.csproj", "{5766F7B2-4C63-4FC2-AC35-7D7B75FF6673}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace.Configuration", "AgileTrace.Configuration\AgileTrace.Configuration.csproj", "{E4976B2A-9012-4B03-AD2B-42E751335762}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "00 AgileTrace.Configuration", "AgileTrace.Configuration\00 AgileTrace.Configuration.csproj", "{E4976B2A-9012-4B03-AD2B-42E751335762}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace.Repository.Common", "AgileTrace.Repository.Common\AgileTrace.Repository.Common.csproj", "{7DF8AB18-46FD-4D97-81C3-5E5DA9F4B00B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "21 AgileTrace.Repository.Common", "AgileTrace.Repository.Common\21 AgileTrace.Repository.Common.csproj", "{7DF8AB18-46FD-4D97-81C3-5E5DA9F4B00B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgileTrace.Repository.Sql", "AgileTrace.Repository.Sql\AgileTrace.Repository.Sql.csproj", "{9E61FF3C-4C10-4245-83DA-51BC6455553C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "23 AgileTrace.Repository.Sql", "AgileTrace.Repository.Sql\23 AgileTrace.Repository.Sql.csproj", "{9E61FF3C-4C10-4245-83DA-51BC6455553C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgileTrace.Repository.MongoDb", "AgileTrace.Repository.MongoDb\AgileTrace.Repository.MongoDb.csproj", "{BDB84518-0FAB-410D-A596-DCD34F6403B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "22 AgileTrace.Repository.MongoDb", "AgileTrace.Repository.MongoDb\22 AgileTrace.Repository.MongoDb.csproj", "{BDB84518-0FAB-410D-A596-DCD34F6403B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

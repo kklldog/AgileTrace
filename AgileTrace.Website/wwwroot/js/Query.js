@@ -30,12 +30,25 @@
     }
 
     var getApps = function () {
-        $http.get('/home/apps?_=' + (new Date).getTime())
+        $http.get('/app/apps?_=' + (new Date).getTime())
             .then(function (rep) {
                 $scope.apps = rep.data.result;
                 $scope.apps.unshift({ id: '',name:'all' });
                 $scope.getPageTrace(1);
             });
+    }
+
+    $scope.findApp = function(appId) {
+        for (var i = 0; i < $scope.apps.length; i++) {
+            var item = $scope.apps[i];
+            if (item.id === appId)
+                return item;
+        }
+
+        return {
+            id: '',
+            name: ''
+        };
     }
 
     $scope.selectedAppIdChanged = function () {

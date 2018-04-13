@@ -25,12 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgileTrace.Configuration\AgileTrace.Configuration.csproj" />
-    <ProjectReference Include="..\AgileTrace.Entity\AgileTrace.Entity.csproj" />
-    <ProjectReference Include="..\AgileTrace.IService\AgileTrace.IService.csproj" />
-    <ProjectReference Include="..\AgileTrace.Repository.MongoDb\AgileTrace.Repository.MongoDb.csproj" />
-    <ProjectReference Include="..\AgileTrace.Repository.Sql\AgileTrace.Repository.Sql.csproj" />
-    <ProjectReference Include="..\AgileTrace.Service\AgileTrace.Service.csproj" />
+    <ProjectReference Include="..\AgileTrace.Configuration\00 AgileTrace.Configuration.csproj" />
+    <ProjectReference Include="..\AgileTrace.Entity\10 AgileTrace.Entity.csproj" />
+    <ProjectReference Include="..\AgileTrace.IService\30 AgileTrace.IService.csproj" />
+    <ProjectReference Include="..\AgileTrace.Repository.MongoDb\22 AgileTrace.Repository.MongoDb.csproj" />
+    <ProjectReference Include="..\AgileTrace.Repository.Sql\23 AgileTrace.Repository.Sql.csproj" />
+    <ProjectReference Include="..\AgileTrace.Service\31 AgileTrace.Service.csproj" />
   </ItemGroup>
 
 </Project>

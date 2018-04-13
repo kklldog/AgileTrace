@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgileTrace.Configuration\AgileTrace.Configuration.csproj" />
-    <ProjectReference Include="..\AgileTrace.IRepository\AgileTrace.IRepository.csproj" />
+    <ProjectReference Include="..\AgileTrace.Configuration\00 AgileTrace.Configuration.csproj" />
+    <ProjectReference Include="..\AgileTrace.IRepository\20 AgileTrace.IRepository.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,6 +2,12 @@
     Layout = null;
 }
 
+<style>
+    table.table.trace {
+        margin-bottom: 0px;
+    }
+</style>
+
 <div class="form-inline">
     App: <select class="form-control input-sm" 
                  ng-model="selectedAppId" 
@@ -23,8 +29,9 @@
     <button type="button" class="btn btn-primary btn-sm" ng-click="getPageTrace(1)">query</button>
 </div>
 <p></p>
-<table class="table table-bordered table-condensed table-responsive table-striped">
+<table class="table table-bordered table-condensed table-responsive table-striped trace">
     <tr>
+        <th>App</th>
         <th>Time</th>
         <th>Level</th>
         <th>Topic</th>
@@ -32,6 +39,7 @@
         <th>Action</th>
     </tr>
     <tr ng-repeat="row in rows">
+        <td ng-bind="findApp(row.appId).name"></td>
         <td ng-bind="row.time|date:'yyyy-MM-dd HH:mm:ss'"></td>
         <td ng-bind="row.level"></td>
         <td ng-bind="row.topic"></td>

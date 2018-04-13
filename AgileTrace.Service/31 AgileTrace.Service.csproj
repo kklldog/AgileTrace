@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgileTrace.Entity\AgileTrace.Entity.csproj" />
-    <ProjectReference Include="..\AgileTrace.IRepository\AgileTrace.IRepository.csproj" />
-    <ProjectReference Include="..\AgileTrace.IService\AgileTrace.IService.csproj" />
+    <ProjectReference Include="..\AgileTrace.Entity\10 AgileTrace.Entity.csproj" />
+    <ProjectReference Include="..\AgileTrace.IRepository\20 AgileTrace.IRepository.csproj" />
+    <ProjectReference Include="..\AgileTrace.IService\30 AgileTrace.IService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

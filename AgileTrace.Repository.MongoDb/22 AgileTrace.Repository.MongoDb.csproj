@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AgileTrace.Configuration\00 AgileTrace.Configuration.csproj" />
+    <ProjectReference Include="..\AgileTrace.Entity\10 AgileTrace.Entity.csproj" />
+    <ProjectReference Include="..\AgileTrace.IRepository\20 AgileTrace.IRepository.csproj" />
+    <ProjectReference Include="..\AgileTrace.Repository.Common\21 AgileTrace.Repository.Common.csproj" />
+  </ItemGroup>
+
+</Project>
