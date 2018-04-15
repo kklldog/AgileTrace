@@ -25,7 +25,10 @@
              <option value="Error">Error</option>
              <option value="Fatal">Fatal</option>
          </select>
-    
+    Date:
+    <input type="text" class="form-control input-sm" datetimepicker ng-model="startDate" view-mode="month">
+    -
+    <input type="text" class="form-control input-sm" datetimepicker ng-model="endDate" view-mode="month">
     <button type="button" class="btn btn-primary btn-sm" ng-click="getPageTrace(1)">query</button>
 </div>
 <p></p>

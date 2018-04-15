@@ -1,4 +1,6 @@
-﻿app.controller('queryCtrl', function ($scope, $http) {
+﻿app.controller('queryCtrl', function ($scope, $http,$filter) {
+    var dateFilter = $filter('date');
+
     $scope.pageInfo = {
         pageIndex: 1,
         showPages: 10,
@@ -9,6 +11,11 @@
     var pageSize = 15;
     $scope.rows = [];
     $scope.selectRow = {};
+
+    var initQueryDate = function (){
+        $scope.startDate = dateFilter(new Date(),'yyyy-MM-dd');
+        $scope.endDate = $scope.startDate;
+    }
 
     $scope.showTraceDetail = function (row) {
         $scope.selectRow = row;
@@ -22,6 +29,8 @@
             '&pageIndex=' + pageIndex
             + '&pageSize=' + pageSize
             +'&logLevel='+$scope.logLevel
+            +'&startDate='+$scope.startDate
+            +'&endDate='+$scope.endDate
             + '&_=' + (new Date).getTime())
             .then(function (rep) {
                 $scope.rows = rep.data.result;
@@ -55,5 +64,6 @@
         $scope.getPageTrace(1);
     }
 
+    initQueryDate();
     getApps();
 });

@@ -4,6 +4,7 @@ using AgileTrace.IRepository;
 using AgileTrace.Repository.Common;
 using AgileTrace.Repository.MongoDb.DbContexts;
 using MongoDB.Driver;
+using System;
 
 namespace AgileTrace.Repository.MongoDb
 {
@@ -14,12 +15,14 @@ namespace AgileTrace.Repository.MongoDb
         {
         }
 
-        public IEnumerable<Trace> Page(int pageIndex, int pageSize, string appId, string level)
+        public IEnumerable<Trace> Page(int pageIndex, int pageSize, string appId, string level, DateTime startDate, DateTime endDate)
         {
             var sk = (pageIndex - 1) * pageSize;
             var page = Collection.Find(t =>
                       (string.IsNullOrEmpty(appId) || t.AppId == appId)
-                      && (string.IsNullOrEmpty(level) || t.Level == level))
+                      && (string.IsNullOrEmpty(level) || t.Level == level)
+                      && t.Time >= startDate
+                      && t.Time < endDate)
                 .Sort(new SortDefinitionBuilder<Trace>().Descending(t => t.Time))
                 .Skip(sk)
                 .Limit(pageSize)
@@ -28,9 +31,19 @@ namespace AgileTrace.Repository.MongoDb
             return page;
         }
 
-        public int Count(string appId, string level)
+        public int Count(string appId, string level, DateTime startDate, DateTime endDate)
         {
-            return (int)Collection.Count(t => (string.IsNullOrEmpty(level) || t.AppId == appId) && (string.IsNullOrEmpty(level) || t.Level == level));
+            return (int)Collection.Count(t => (string.IsNullOrEmpty(level) || t.AppId == appId) 
+                                        && (string.IsNullOrEmpty(level) || t.Level == level)
+                                        && t.Time >= startDate
+                                        && t.Time < endDate);
+        }
+
+        private int Count(string appId, string level)
+        {
+            return (int)Collection.Count(t => (string.IsNullOrEmpty(level) || t.AppId == appId) 
+                                        && (string.IsNullOrEmpty(level) || t.Level == level)
+                                        );
         }
 
         public object GroupLevel(List<string> levels, string appId)
@@ -39,7 +52,7 @@ namespace AgileTrace.Repository.MongoDb
             foreach (var level in levels)
             {
                 var value = Count(appId, level);
-                if (value>0)
+                if (value > 0)
                 {
                     result.Add(new
                     {

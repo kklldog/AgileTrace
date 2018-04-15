@@ -7,9 +7,9 @@ namespace AgileTrace.IRepository
 {
     public interface ITraceRepository : IRepository<Trace>
     {
-        IEnumerable<Trace> Page(int pageIndex, int pageSize, string appId,string level);
+        IEnumerable<Trace> Page(int pageIndex, int pageSize, string appId,string level,DateTime startDate,DateTime endDate);
 
-        int Count(string appId, string level);
+        int Count(string appId, string level, DateTime startDate, DateTime endDate);
 
         object GroupLevel(List<string> levels, string appId);
     }

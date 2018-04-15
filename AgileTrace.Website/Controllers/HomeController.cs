@@ -42,10 +42,11 @@ namespace AgileTrace.Controllers
             return View(viewName);
         }
 
-        public IActionResult PageTrace(string appId, string logLevel, int pageIndex, int pageSize)
+        public IActionResult PageTrace(string appId, string logLevel, int pageIndex, int pageSize, DateTime startDate, DateTime endDate)
         {
-            var result = _traceRepository.Page(pageIndex, pageSize, appId, logLevel);
-            var totalCount = _traceRepository.Count(appId, logLevel);
+            endDate = endDate.Date.AddDays(1);
+            var result = _traceRepository.Page(pageIndex, pageSize, appId, logLevel, startDate, endDate);
+            var totalCount = _traceRepository.Count(appId, logLevel, startDate, endDate);
 
             return Json(new
             {

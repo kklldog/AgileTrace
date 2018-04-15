@@ -18,22 +18,26 @@ namespace AgileTrace.Repository.Sql
         {
         }
 
-        public IEnumerable<Trace> Page(int pageIndex, int pageSize, string appId, string level)
+        public IEnumerable<Trace> Page(int pageIndex, int pageSize, string appId, string level, DateTime startDate, DateTime endDate)
         {
             var page = DbContext.Set<Trace>().Where(t =>
                     (string.IsNullOrEmpty(appId) || t.AppId == appId)
-                    && (string.IsNullOrEmpty(level) || t.Level == level))
+                    && (string.IsNullOrEmpty(level) || t.Level == level)
+                    && t.Time >= startDate
+                    && t.Time < endDate)
                 .OrderByDescending(t => t.Time)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize);
             return page.ToList();
         }
 
-        public int Count(string appId, string level)
+        public int Count(string appId, string level, DateTime startDate, DateTime endDate)
         {
             var count = DbContext.Set<Trace>().Count(t =>
                 (string.IsNullOrEmpty(appId) || t.AppId == appId)
-                && (string.IsNullOrEmpty(level) || t.Level == level));
+                && (string.IsNullOrEmpty(level) || t.Level == level)
+                && t.Time >= startDate
+                && t.Time < endDate);
 
             return count;
         }
@@ -66,7 +70,7 @@ namespace AgileTrace.Repository.Sql
                 {
                     cmd.Parameters.Add(new SqliteParameter("@appId", appId));
                 }
-               
+
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
