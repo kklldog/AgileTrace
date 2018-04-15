@@ -260,6 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 #logs
-/AgileTrace/logs/
-/AgileTrace/agiletrace.db
-/AgileTrace/Properties/PublishProfiles
+/AgileTrace.Website/logs/
+/AgileTrace.Website/agiletrace.db
+/AgileTrace.Website/Properties/PublishProfiles
