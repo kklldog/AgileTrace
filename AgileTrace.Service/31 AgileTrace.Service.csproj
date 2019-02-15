@@ -5,18 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AgileTrace.Entity\10 AgileTrace.Entity.csproj" />
-    <ProjectReference Include="..\AgileTrace.IRepository\20 AgileTrace.IRepository.csproj" />
-    <ProjectReference Include="..\AgileTrace.IService\30 AgileTrace.IService.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.Extensions.Caching.Abstractions">
-      <HintPath>..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.caching.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
-      <HintPath>..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencyinjection.abstractions\2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\AgileTrace.Entity\10 AgileTrace.Entity.csproj" />
+    <ProjectReference Include="..\AgileTrace.IRepository\20 AgileTrace.IRepository.csproj" />
+    <ProjectReference Include="..\AgileTrace.IService\30 AgileTrace.IService.csproj" />
   </ItemGroup>
 
 </Project>
