@@ -46,7 +46,7 @@ namespace AgileTrace.Repository.Sql
         public List<dynamic> GroupLevel(List<string> levels, string appId, DateTime startDate, DateTime endDate)
         {
             var result = new List<dynamic>();
-            StringBuilder sql = new StringBuilder("select level,count(1) as amount from Traces t where startDate >=@startDate and endDate <=@endDate ");
+            StringBuilder sql = new StringBuilder("select level,count(1) as amount from Traces t where TIME >=@startDate and TIME <=@endDate ");
             if (levels != null)
             {
                 var arr = levels.Select(l => string.Format("'{0}'", l)).ToArray();
