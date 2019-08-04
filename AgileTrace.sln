@@ -21,6 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "23 AgileTrace.Repository.Sq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "22 AgileTrace.Repository.MongoDb", "AgileTrace.Repository.MongoDb\22 AgileTrace.Repository.MongoDb.csproj", "{BDB84518-0FAB-410D-A596-DCD34F6403B1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6641A0F5-BA8A-4E24-835B-8E75CD5C1508}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
