@@ -9,6 +9,7 @@ using AgileTrace.Entity;
 using AgileTrace.Repository.Common;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 
 namespace AgileTrace.Repository.Sql
 {
@@ -42,10 +43,10 @@ namespace AgileTrace.Repository.Sql
             return count;
         }
 
-        public object GroupLevel(List<string> levels, string appId)
+        public List<dynamic> GroupLevel(List<string> levels, string appId, DateTime startDate, DateTime endDate)
         {
-            var result = new List<object>();
-            StringBuilder sql = new StringBuilder("select level,count(1) as amount from Traces t where 1=1 ");
+            var result = new List<dynamic>();
+            StringBuilder sql = new StringBuilder("select level,count(1) as amount from Traces t where startDate >=@startDate and endDate <=@endDate ");
             if (levels != null)
             {
                 var arr = levels.Select(l => string.Format("'{0}'", l)).ToArray();
@@ -65,20 +66,25 @@ namespace AgileTrace.Repository.Sql
                 if (conn is SqlConnection)
                 {
                     cmd.Parameters.Add(new SqlParameter("@appId", appId));
+                    cmd.Parameters.Add(new SqlParameter("@startDate", startDate));
+                    cmd.Parameters.Add(new SqlParameter("@endDate", endDate));
                 }
                 if (conn is SqliteConnection)
                 {
                     cmd.Parameters.Add(new SqliteParameter("@appId", appId));
+                    cmd.Parameters.Add(new SqliteParameter("@startDate", startDate));
+                    cmd.Parameters.Add(new SqliteParameter("@endDate", endDate));
                 }
 
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var name = reader.GetString(0);
-                        var value = reader.GetInt32(1);
+                        dynamic dyObj = new ExpandoObject();
+                        dyObj.name = reader.GetString(0);
+                        dyObj.value = reader.GetInt32(1);
 
-                        result.Add(new { name = name, value = value });
+                        result.Add(dyObj);
                     }
 
                     return result;

@@ -11,6 +11,6 @@ namespace AgileTrace.IRepository
 
         int Count(string appId, string level, DateTime startDate, DateTime endDate);
 
-        object GroupLevel(List<string> levels, string appId);
+        List<dynamic> GroupLevel(List<string> levels, string appId,DateTime startDate, DateTime endDate);
     }
 }

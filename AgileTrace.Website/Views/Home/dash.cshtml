@@ -21,7 +21,6 @@
         height: 500px;
         margin-top: 10px
     }
-
 </style>
 <p>
     <strong>Realtime</strong>
@@ -33,6 +32,9 @@
         Level:{{t.Level}}&nbsp;&nbsp;
         Message:{{t.Message}}&nbsp;&nbsp;
     </div>
+</div>
+<div class="text-info">
+    最近30天
 </div>
 <div class="charts row">
     <div class="chart col-md-4" echart chart-option="item" ng-repeat="item in chartsOptions"></div>

@@ -78,7 +78,7 @@ app.controller('dashCtrl', function ($scope, $http, websocket) {
 
     $scope.chartsOptions = [];
     var logLevels = ['Debug', 'Trace', 'Info', 'Warn', 'Error', 'Fatal'];
-    $http.post('/home/getchartdata', logLevels)
+    $http.post('/home/DashChartData', logLevels)
         .then(function (rep) {
             angular.forEach(rep.data, function (d) {
                 var title = !d.appName ? 'all' : d.appName;

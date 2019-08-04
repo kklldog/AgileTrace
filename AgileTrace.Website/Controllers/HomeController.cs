@@ -60,7 +60,7 @@ namespace AgileTrace.Controllers
             return Json($"{HttpContext.Request.Host.Host}:{HttpContext.Request.Host.Port}");
         }
 
-        public IActionResult GetChartData([FromBody]List<string> levels)
+        public IActionResult DashChartData([FromBody]List<string> levels)
         {
             const string cacheKey = "DashChatData";
             _memoryCache.TryGetValue(cacheKey, out List<object> result);
@@ -75,7 +75,7 @@ namespace AgileTrace.Controllers
             appIds.Insert(0, "");
             foreach (var appId in appIds)
             {
-                var data = AppChartData(appId, levels);
+                var data = AppPreMonthChartData(appId, levels);
                 result.Add(data);
             }
 
@@ -86,7 +86,7 @@ namespace AgileTrace.Controllers
             return Json(result);
         }
 
-        private object AppChartData(string appId, List<string> levels)
+        private object AppPreMonthChartData(string appId, List<string> levels)
         {
             var app = _memoryCache.Get<App>($"app_{appId}");
             if (app == null)
@@ -94,8 +94,9 @@ namespace AgileTrace.Controllers
                 app = _appRepository.Get(appId);
             }
 
+            var startDate = DateTime.Now.AddDays(-30);
             var appName = string.IsNullOrEmpty(appId) ? "" : app.Name;
-            var result = _traceRepository.GroupLevel(levels, appId);
+            var result = _traceRepository.GroupLevel(levels, appId, startDate, DateTime.Now);
 
             return new
             {

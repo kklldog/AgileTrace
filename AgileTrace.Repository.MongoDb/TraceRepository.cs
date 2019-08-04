@@ -5,6 +5,7 @@ using AgileTrace.Repository.Common;
 using AgileTrace.Repository.MongoDb.DbContexts;
 using MongoDB.Driver;
 using System;
+using System.Dynamic;
 
 namespace AgileTrace.Repository.MongoDb
 {
@@ -33,7 +34,7 @@ namespace AgileTrace.Repository.MongoDb
 
         public int Count(string appId, string level, DateTime startDate, DateTime endDate)
         {
-            return (int)Collection.Count(t => (string.IsNullOrEmpty(level) || t.AppId == appId) 
+            return (int)Collection.Count(t => (string.IsNullOrEmpty(level) || t.AppId == appId)
                                         && (string.IsNullOrEmpty(level) || t.Level == level)
                                         && t.Time >= startDate
                                         && t.Time < endDate);
@@ -41,24 +42,23 @@ namespace AgileTrace.Repository.MongoDb
 
         private int Count(string appId, string level)
         {
-            return (int)Collection.Count(t => (string.IsNullOrEmpty(level) || t.AppId == appId) 
+            return (int)Collection.Count(t => (string.IsNullOrEmpty(level) || t.AppId == appId)
                                         && (string.IsNullOrEmpty(level) || t.Level == level)
                                         );
         }
 
-        public object GroupLevel(List<string> levels, string appId)
+        public List<dynamic> GroupLevel(List<string> levels, string appId, DateTime startDate, DateTime endDate)
         {
-            var result = new List<object>();
+            var result = new List<dynamic>();
             foreach (var level in levels)
             {
-                var value = Count(appId, level);
+                var value = Count(appId, level, startDate, endDate);
                 if (value > 0)
                 {
-                    result.Add(new
-                    {
-                        name = level,
-                        value
-                    });
+                    dynamic obj = new ExpandoObject();
+                    obj.name = level;
+                    obj.value = value;
+                    result.Add(obj);
                 }
             }
 
